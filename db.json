@@ -24,6 +24,56 @@
       "nombre": "Jugo de Fresa",
       "precio": "200",
       "id": 5
+    },
+    {
+      "nombre": "Rib Eyes",
+      "precio": 300,
+      "id": 6
+    },
+    {
+      "nombre": "Fresa",
+      "precio": 1,
+      "id": 7
+    },
+    {
+      "nombre": "BBB Fresa",
+      "precio": 123,
+      "id": 8
+    },
+    {
+      "nombre": "BBB Fresa Intensa",
+      "precio": 123,
+      "id": 9
+    },
+    {
+      "nombre": "BBB Fresa Intensa",
+      "precio": 123,
+      "id": 10
+    },
+    {
+      "nombre": "tienda virtual",
+      "precio": 123,
+      "id": 11
+    },
+    {
+      "nombre": "BBB Piña",
+      "precio": 123,
+      "id": 12
+    },
+    {
+      "nombre": "Gomita Trululu",
+      "precio": 399,
+      "id": 13
+    },
+    {
+      "nombre": "BBB Naranja",
+      "precio": 123,
+      "id": 14
+    },
+    {
+      "nombre": "Cerveza",
+      "precio": 3123,
+      "id": 15
     }
   ]
 }
