@@ -4,6 +4,9 @@ import {
   AGREGAR_PRODUCTO,
   AGREGAR_PRODUCTO_ERROR,
   AGREGAR_PRODUCTO_EXITO,
+  COMENZAR_DESCARGA_PRODUCTO,
+  DESCARGAR_PRODUCTOS_EXITO,
+  DESCARGAR_PRODUCTOS_ERROR,
 } from "../types";
 
 // Crear nuevos productos
@@ -13,7 +16,7 @@ export function crearNuevoProductoAction(producto) {
     dispatch(agregarProducto());
     try {
       // insertar en la API
-      await clienteAxios.post("/productoss", producto);
+      await clienteAxios.post("/productos", producto);
 
       // Si todo sale bien, actualizar el state
       dispatch(agregarProductoExito(producto));
@@ -22,7 +25,7 @@ export function crearNuevoProductoAction(producto) {
         title: "Correcto",
         text: "El Producto se Agregó Correctamente",
         icon: "success",
-        timer: 2000
+        timer: 2000,
       });
     } catch (error) {
       console.log(error);
@@ -54,3 +57,39 @@ const agregarProductoError = (estado) => ({
   type: AGREGAR_PRODUCTO_ERROR,
   payload: estado,
 });
+
+// fUNCIón q descarga los productos de la base de datos
+
+export const obtenerProductosAction = () => {
+  return async (dispatch) => {
+    dispatch(descargarProductos());
+    try {
+      const respuesta = await clienteAxios.get("/productos");
+      dispatch(descargarProductosExtitosa(respuesta.data));
+    } catch (error) {
+      dispatch(descargarProductosError());
+    }
+  };
+};
+
+const descargarProductos = () => {
+  return {
+    type: COMENZAR_DESCARGA_PRODUCTO,
+    payload: true,
+  };
+};
+
+const descargarProductosExtitosa = (productos) => {
+  return {
+    type: DESCARGAR_PRODUCTOS_EXITO,
+    payload: productos,
+  };
+};
+
+const descargarProductosError = () => {
+  return {
+    type: DESCARGAR_PRODUCTOS_ERROR,
+    payload: true
+  }
+}
+
