@@ -7,10 +7,12 @@ import {
   COMENZAR_DESCARGA_PRODUCTO,
   DESCARGAR_PRODUCTOS_EXITO,
   DESCARGAR_PRODUCTOS_ERROR,
+  OBTENER_PRODUCTO_ELIMINAR,
+  PRODUCTO_ELIMINADO_ERROR,
+  PRODUCTO_ELIMINADO_EXITO,
 } from "../types";
 
 // Crear nuevos productos
-
 export function crearNuevoProductoAction(producto) {
   return async (dispatch) => {
     dispatch(agregarProducto());
@@ -57,9 +59,7 @@ const agregarProductoError = (estado) => ({
   type: AGREGAR_PRODUCTO_ERROR,
   payload: estado,
 });
-
-// fUNCIón q descarga los productos de la base de datos
-
+// fUNCIón q descarga los productos de la base de dato
 export const obtenerProductosAction = () => {
   return async (dispatch) => {
     dispatch(descargarProductos());
@@ -89,7 +89,46 @@ const descargarProductosExtitosa = (productos) => {
 const descargarProductosError = () => {
   return {
     type: DESCARGAR_PRODUCTOS_ERROR,
-    payload: true
-  }
-}
+    payload: true,
+  };
+};
+
+// Selecciona y elimina el producto
+export const borrarProductoAction =  (id) => {
+  return async (dispatch) => {
+    dispatch(obtenerProductoEliminar(id));
+    try {
+      await clienteAxios.delete(`/productos/${id}`)
+      dispatch(eliminarProductoExito())
+      // Si se elimina, se muestra la alerta
+      Swal.fire(
+        'Eliminado!',
+        'El producto se ha eliminado correctamente.',
+        'success'
+      )
+    } catch (error) {
+      dispatch(eliminarProductoError())
+      console.log(error)
+      Swal.fire(
+        'Error al eliminar!',
+        'Hubo un error al eliminar el producto',
+        'error'
+      )
+    }
+  };
+};
+
+const obtenerProductoEliminar = (id) => ({
+  type: OBTENER_PRODUCTO_ELIMINAR,
+  payload: id
+});
+
+const eliminarProductoExito = () => ({
+  type: PRODUCTO_ELIMINADO_EXITO
+})
+
+const eliminarProductoError = () => ({
+  type: PRODUCTO_ELIMINADO_ERROR,
+  payload: true
+})
 
