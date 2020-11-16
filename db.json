@@ -1,3 +1,34 @@
 {
-  "productos": []
+  "productos": [
+    {
+      "nombre": "BBB Fresa",
+      "precio": "4107",
+      "id": 1
+    },
+    {
+      "nombre": "Gomitas Trululu x50",
+      "precio": 2300,
+      "id": 2
+    },
+    {
+      "nombre": "Arroz Diana x25",
+      "precio": 37000,
+      "id": 3
+    },
+    {
+      "nombre": "Aceite x20lts",
+      "precio": 60000,
+      "id": 4
+    },
+    {
+      "nombre": "Mantequilla rama x 450",
+      "precio": 50000,
+      "id": 5
+    },
+    {
+      "nombre": "Papel Higienico Mio x25",
+      "precio": 15000,
+      "id": 6
+    }
+  ]
 }

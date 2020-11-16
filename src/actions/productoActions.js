@@ -10,6 +10,10 @@ import {
   OBTENER_PRODUCTO_ELIMINAR,
   PRODUCTO_ELIMINADO_ERROR,
   PRODUCTO_ELIMINADO_EXITO,
+  OBTENER_PRODUCTO_EDITAR,
+  PRODUCTO_EDITADO_ERROR,
+  PRODUCTO_EDITADO_EXITO,
+  COMENZAR_EDICION_PRODUCTO,
 } from "../types";
 
 // Crear nuevos productos
@@ -94,41 +98,80 @@ const descargarProductosError = () => {
 };
 
 // Selecciona y elimina el producto
-export const borrarProductoAction =  (id) => {
+export const borrarProductoAction = (id) => {
   return async (dispatch) => {
     dispatch(obtenerProductoEliminar(id));
     try {
-      await clienteAxios.delete(`/productos/${id}`)
-      dispatch(eliminarProductoExito())
+      await clienteAxios.delete(`/productos/${id}`);
+      dispatch(eliminarProductoExito());
       // Si se elimina, se muestra la alerta
       Swal.fire(
-        'Eliminado!',
-        'El producto se ha eliminado correctamente.',
-        'success'
-      )
+        "Eliminado!",
+        "El producto se ha eliminado correctamente.",
+        "success"
+      );
     } catch (error) {
-      dispatch(eliminarProductoError())
-      console.log(error)
+      dispatch(eliminarProductoError());
+      console.log(error);
       Swal.fire(
-        'Error al eliminar!',
-        'Hubo un error al eliminar el producto',
-        'error'
-      )
+        "Error al eliminar!",
+        "Hubo un error al eliminar el producto",
+        "error"
+      );
     }
   };
 };
 
 const obtenerProductoEliminar = (id) => ({
   type: OBTENER_PRODUCTO_ELIMINAR,
-  payload: id
+  payload: id,
 });
 
 const eliminarProductoExito = () => ({
-  type: PRODUCTO_ELIMINADO_EXITO
-})
+  type: PRODUCTO_ELIMINADO_EXITO,
+});
 
 const eliminarProductoError = () => ({
   type: PRODUCTO_ELIMINADO_ERROR,
-  payload: true
+  payload: true,
+});
+
+// selecciona y editar un producto
+
+export const productoEditarStateAction = (producto) => {
+  return (dispatch) => {
+    dispatch(productoEditarState(producto));
+  };
+};
+
+const productoEditarState = (producto) => ({
+  type: OBTENER_PRODUCTO_EDITAR,
+  payload: producto,
+});
+
+// Editar un registro en la API
+export const editarProductoAction = (producto) => {
+  return async (dispatch) => {
+    dispatch(editarProducto());
+    try {
+      await clienteAxios.put(`/productos/${producto.id}`, producto);
+      dispatch(editarProductoExito(producto))
+    } catch (error) {
+      dispatch(editarProductoError())
+    }
+  };
+};
+
+const editarProducto = () => ({
+  type: COMENZAR_EDICION_PRODUCTO,
+});
+
+const editarProductoExito = (producto) => ({
+ type: PRODUCTO_EDITADO_EXITO,
+ payload: producto 
 })
 
+const editarProductoError = () => ({
+  type: PRODUCTO_EDITADO_ERROR,
+  payload: true
+})
