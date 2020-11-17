@@ -10,7 +10,9 @@ export const Productos = () => {
   useEffect(() => {
     const cargarProductos = () => dispatch(obtenerProductosAction());
     cargarProductos();
-  }, [dispatch]);
+    console.log("asdasd")
+    // eslint-disable-next-line
+  }, []);
   // Obetener el state
   const productos = useSelector((state) => state.productos.productos);
   const error = useSelector((state) => state.productos.error);

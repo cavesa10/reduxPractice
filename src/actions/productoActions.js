@@ -51,6 +51,7 @@ export function crearNuevoProductoAction(producto) {
 
 const agregarProducto = () => ({
   type: AGREGAR_PRODUCTO,
+  payload: true
 });
 // Si el producto se guarda en la base de datos
 const agregarProductoExito = (producto) => ({
@@ -70,6 +71,7 @@ export const obtenerProductosAction = () => {
     try {
       const respuesta = await clienteAxios.get("/productos");
       dispatch(descargarProductosExtitosa(respuesta.data));
+      console.log(respuesta.data)
     } catch (error) {
       dispatch(descargarProductosError());
     }

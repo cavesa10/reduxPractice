@@ -27,7 +27,7 @@ export default function productosReducer(state = initialState, action) {
     case AGREGAR_PRODUCTO:
       return {
         ...state,
-        loading: true,
+        loading: action.payload,
       };
     case AGREGAR_PRODUCTO_EXITO:
       return {
